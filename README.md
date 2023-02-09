@@ -3,8 +3,12 @@
 ```
 npm install
 cd ios && pod install && cd ..
-npm run ios # for ios
-npm run android # for android
+
+# for ios
+npm run ios
+
+# for android
+npm run android
 ```
 
 ## Dependencies

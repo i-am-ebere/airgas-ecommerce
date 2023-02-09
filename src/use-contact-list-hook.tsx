@@ -52,6 +52,7 @@ export function ContactListProvider(props: IContactListProviderProps) {
   ]);
 
   function sortAndAdd(value: IContact[]) {
+    ///
     setContacts(value);
   }
 
