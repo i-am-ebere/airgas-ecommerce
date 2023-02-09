@@ -4,33 +4,39 @@ import {defaultStyles} from './assets/styles';
 import AddButtonIcon from './assets/svg/add-button.svg';
 import {AddContact} from './src/add-contact';
 import {TopBanner} from './src/top-banner';
-const DATA = [
-  {
-    title: 'A',
-    data: ['Alyssa Lukens'],
-  },
-  {
-    title: 'D',
-    data: ['David Fasciano', 'Diana Margulis'],
-  },
-  {
-    title: 'H',
-    data: ['Harry ZdZairski'],
-  },
-  {
-    title: 'J',
-    data: ['John Gilman'],
-  },
-];
+
 function App() {
+  const [contactList, setContactList] = useState([
+    {
+      title: 'A',
+      data: ['Alyssa Lukens'],
+    },
+    {
+      title: 'D',
+      data: ['David Fasciano', 'Diana Margulis'],
+    },
+    {
+      title: 'H',
+      data: ['Harry ZdZairski'],
+    },
+    {
+      title: 'J',
+      data: ['John Gilman'],
+    },
+  ]);
   const [isShowingAddContact, setIsShowingAddContact] = useState(false);
-  const contactCount = DATA.reduce(
+  const contactCount = contactList.reduce(
     (total, curVal) => total + curVal.data.length,
     0,
   );
 
   if (isShowingAddContact) {
-    return <AddContact shouldDisplayAddContact={setIsShowingAddContact} />;
+    return (
+      <AddContact
+        createContact={setContactList}
+        shouldDisplayAddContact={setIsShowingAddContact}
+      />
+    );
   }
 
   return (
@@ -44,7 +50,7 @@ function App() {
       <TopBanner title={'Contact List'} contactCount={contactCount} />
       <View style={defaultStyles.paddingHorizontal10}>
         <SectionList
-          sections={DATA}
+          sections={contactList}
           keyExtractor={(item, index) => item + index}
           renderItem={({item}) => (
             <View style={styles.item}>

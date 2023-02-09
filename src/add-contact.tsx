@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -13,11 +13,56 @@ import {TopBanner} from './top-banner';
 import CloseButtonIcon from '../assets/svg/close-button.svg';
 import {defaultStyles} from '../assets/styles';
 
+interface IContact {
+  title: string;
+  data: string[];
+}
+
 interface IAddContactProps {
   shouldDisplayAddContact: (value: boolean) => void;
+  createContact: (data: IContact[]) => void;
 }
 
 export function AddContact(props: IAddContactProps) {
+  //   const [contact, setContact] = useState({
+  //     firstName: '',
+  //     lastName: '',
+  //     email: '',
+  //     phone: ' ',
+  //   });
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [hasError, setHasError] = useState(false);
+
+  function onSubmit() {
+    setHasError(false);
+    if (
+      checkEmptyStrings(firstName) ||
+      checkEmptyStrings(lastName) ||
+      checkEmptyStrings(email) ||
+      checkEmptyStrings(phone)
+    ) {
+      setHasError(true);
+      return;
+    }
+    const fullName = `${firstName} ${lastName}`;
+    const data = {
+      title: firstName.charAt(0),
+      data: [fullName],
+    };
+    //TODO: We should complete this properly
+    //@ts-ignore-next-line
+    props.createContact(prevState => [...prevState, data]);
+    props.shouldDisplayAddContact(false);
+  }
+
+  function checkEmptyStrings(value: string): boolean {
+    return value.trim().length === 0;
+  }
+
   return (
     <View style={[defaultStyles.container]}>
       <View style={styles.closeButton}>
@@ -28,10 +73,31 @@ export function AddContact(props: IAddContactProps) {
       </View>
       <TopBanner title={'Add Contact'} />
       <View style={defaultStyles.paddingHorizontal10}>
-        <TextInput style={styles.textInput} placeholder={'First name'} />
-        <TextInput style={styles.textInput} placeholder={'Last name'} />
-        <TextInput style={styles.textInput} placeholder={'Email'} />
-        <TextInput style={styles.textInput} placeholder={'Phone'} />
+        {hasError && <Text>One or more data is not valid</Text>}
+        <TextInput
+          value={firstName}
+          onChangeText={text => setFirstName(text)}
+          style={styles.textInput}
+          placeholder={'First name'}
+        />
+        <TextInput
+          value={lastName}
+          onChangeText={text => setLastName(text)}
+          style={styles.textInput}
+          placeholder={'Last name'}
+        />
+        <TextInput
+          value={email}
+          onChangeText={text => setEmail(text)}
+          style={styles.textInput}
+          placeholder={'Email'}
+        />
+        <TextInput
+          value={phone}
+          onChangeText={text => setPhone(text)}
+          style={styles.textInput}
+          placeholder={'Phone'}
+        />
 
         <View>
           {/* <Button title="Add Contact" onPress={() => {}} />
@@ -42,18 +108,20 @@ export function AddContact(props: IAddContactProps) {
             <Text style={{color: 'red'}}>Add Contact</Text>
           </TouchableWithoutFeedback> */}
           <Pressable
-            onPress={() => {}}
+            onPress={onSubmit}
             style={({pressed}) => [
-              {backgroundColor: pressed ? 'green' : 'blue'},
+              styles.addButton,
+              //   {backgroundColor: pressed ? 'green' : 'blue'},
             ]}>
-            <Text style={{color: 'red'}}>Add Contact</Text>
+            <Text style={styles.buttonText}>Add Contact</Text>
           </Pressable>
           <Pressable
             onPress={() => {}}
             style={({pressed}) => [
-              {backgroundColor: pressed ? 'green' : 'blue'},
+              styles.cancelButton,
+              {backgroundColor: pressed ? '#DEDEDE' : 'gray'},
             ]}>
-            <Text style={{color: 'red'}}>Cancel</Text>
+            <Text style={styles.buttonText}>Cancel</Text>
           </Pressable>
         </View>
       </View>
@@ -68,6 +136,10 @@ const styles = StyleSheet.create({
     right: 40,
     bottom: 50,
   },
+  buttonText: {
+    color: '#FFFFFF',
+    textAlign: 'center',
+  },
   textInput: {
     paddingVertical: 10,
     paddingHorizontal: 5,
@@ -75,5 +147,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'gray',
     marginTop: 15,
+  },
+  addButton: {
+    marginVertical: 15,
+    backgroundColor: '#04947A',
+    borderRadius: 10,
+    padding: 15,
+  },
+  cancelButton: {
+    backgroundColor: 'gray',
+    borderRadius: 10,
+    padding: 15,
   },
 });
