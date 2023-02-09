@@ -54,7 +54,7 @@ export function ContactListProvider(props: IContactListProviderProps) {
       contact => contact.title === contactToAdd.title,
     );
 
-    const tempCopy = [...contacts];
+    const tempCopy = [...contacts]; // Needed to create a rerender for react
     if (indexOfFirstChar > -1) {
       tempCopy[indexOfFirstChar].data.push(contactToAdd.fullName);
     } else {

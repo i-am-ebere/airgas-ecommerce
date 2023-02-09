@@ -4,6 +4,11 @@
 npm install
 cd ios && pod install && cd ..
 
+# if you get the cocoapod error
+rvm use ruby-2.7.6 --default
+bundle install
+npx pod-install
+
 # for ios
 npm run ios
 
