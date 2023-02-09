@@ -29,7 +29,7 @@ function App() {
   );
 
   if (isShowingAddContact) {
-    return <AddContact />;
+    return <AddContact shouldDisplayAddContact={setIsShowingAddContact} />;
   }
 
   return (
@@ -40,7 +40,7 @@ function App() {
           fill={'#04947A'}
         />
       </View>
-      <TopBanner contactCount={contactCount} />
+      <TopBanner title={'Contact List'} contactCount={contactCount} />
       <View style={styles.paddingHorizontal10}>
         <SectionList
           sections={DATA}

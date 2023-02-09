@@ -2,14 +2,15 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 interface ITopBannerProps {
-  contactCount?: number;
+  title: string;
+  contactCount?: number; // ? means the prop is optional
 }
 
 export function TopBanner(props: ITopBannerProps) {
   return (
     <View style={styles.topBanner}>
       <Text style={styles.topBannerTitleText}>
-        Contact List
+        {props.title}{' '}
         {!!props.contactCount && (
           <Text style={styles.topBannerTitleSubText}>
             {props.contactCount} contacts
