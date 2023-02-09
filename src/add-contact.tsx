@@ -15,24 +15,9 @@ import {defaultStyles} from '../assets/styles';
 import {useNavigation} from '@react-navigation/native';
 import {useContactListHook} from './use-contact-list-hook';
 
-interface IContact {
-  title: string;
-  data: string[];
-}
-
-interface IAddContactProps {
-  createContact: (data: IContact[]) => void;
-}
-
-export function AddContact(props: IAddContactProps) {
+export function AddContact() {
   const navigation = useNavigation();
   const contactHook = useContactListHook();
-  //   const [contact, setContact] = useState({
-  //     firstName: '',
-  //     lastName: '',
-  //     email: '',
-  //     phone: ' ',
-  //   });
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -57,9 +42,9 @@ export function AddContact(props: IAddContactProps) {
       data: [fullName],
     };
     //TODO: We should complete this properly
-    //@ts-ignore-next-line
-    contactHook.setContacts(prevState => [...prevState, data]);
-    // props.shouldDisplayAddContact(false);
+    //sort
+    contactHook.setContacts([...contactHook.contacts, data]);
+    navigation.goBack();
   }
 
   function checkEmptyStrings(value: string): boolean {
