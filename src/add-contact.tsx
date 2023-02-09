@@ -36,14 +36,12 @@ export function AddContact() {
       setHasError(true);
       return;
     }
-    const fullName = `${firstName} ${lastName}`;
     const data = {
       title: firstName.charAt(0),
-      data: [fullName],
+      fullName: `${firstName} ${lastName}`,
     };
-    //TODO: We should complete this properly
-    //sort
-    contactHook.setContacts([...contactHook.contacts, data]);
+
+    contactHook.setContacts(data);
     navigation.goBack();
   }
 

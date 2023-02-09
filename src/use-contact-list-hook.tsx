@@ -4,8 +4,6 @@ import React, {
   useContext,
   useState,
 } from 'react';
-import {View} from 'react-native';
-import {defaultStyles} from '../assets/styles';
 
 interface IContact {
   title: string;
@@ -14,7 +12,7 @@ interface IContact {
 
 interface ContactListType {
   contacts: IContact[];
-  setContacts: (value: IContact[]) => void;
+  setContacts: (value: {title: string; fullName: string}) => void;
 }
 
 const ContactListContext = createContext<ContactListType | undefined>(
@@ -51,9 +49,28 @@ export function ContactListProvider(props: IContactListProviderProps) {
     },
   ]);
 
-  function sortAndAdd(value: IContact[]) {
-    ///
-    setContacts(value);
+  function sortAndAdd(contactToAdd: {title: string; fullName: string}) {
+    const indexOfFirstChar = contacts.findIndex(
+      contact => contact.title === contactToAdd.title,
+    );
+
+    const tempCopy = [...contacts];
+    if (indexOfFirstChar > -1) {
+      tempCopy[indexOfFirstChar].data.push(contactToAdd.fullName);
+    } else {
+      tempCopy.push({title: contactToAdd.title, data: [contactToAdd.fullName]});
+    }
+
+    tempCopy.sort((a, b) => {
+      if (a.title < b.title) {
+        return -1;
+      }
+      if (a.title > b.title) {
+        return 1;
+      }
+      return 0;
+    });
+    setContacts(tempCopy);
   }
 
   const value = {
