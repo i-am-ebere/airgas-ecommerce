@@ -12,6 +12,8 @@ import {
 import {TopBanner} from './top-banner';
 import CloseButtonIcon from '../assets/svg/close-button.svg';
 import {defaultStyles} from '../assets/styles';
+import {useNavigation} from '@react-navigation/native';
+import {useContactListHook} from './use-contact-list-hook';
 
 interface IContact {
   title: string;
@@ -19,11 +21,12 @@ interface IContact {
 }
 
 interface IAddContactProps {
-  shouldDisplayAddContact: (value: boolean) => void;
   createContact: (data: IContact[]) => void;
 }
 
 export function AddContact(props: IAddContactProps) {
+  const navigation = useNavigation();
+  const contactHook = useContactListHook();
   //   const [contact, setContact] = useState({
   //     firstName: '',
   //     lastName: '',
@@ -55,8 +58,8 @@ export function AddContact(props: IAddContactProps) {
     };
     //TODO: We should complete this properly
     //@ts-ignore-next-line
-    props.createContact(prevState => [...prevState, data]);
-    props.shouldDisplayAddContact(false);
+    contactHook.setContacts(prevState => [...prevState, data]);
+    // props.shouldDisplayAddContact(false);
   }
 
   function checkEmptyStrings(value: string): boolean {
@@ -67,7 +70,7 @@ export function AddContact(props: IAddContactProps) {
     <View style={[defaultStyles.container]}>
       <View style={styles.closeButton}>
         <CloseButtonIcon
-          onPress={() => props.shouldDisplayAddContact(false)}
+          onPress={() => navigation.navigate('ContactListScreen')}
           fill={'#04947A'}
         />
       </View>
