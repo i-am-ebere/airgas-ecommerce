@@ -1,40 +1,87 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, SectionList} from 'react-native';
 import AddButtonIcon from './assets/svg/add-button.svg';
-
+import {AddContact} from './src/add-contact';
+import {TopBanner} from './src/top-banner';
+const DATA = [
+  {
+    title: 'A',
+    data: ['Alyssa Lukens'],
+  },
+  {
+    title: 'D',
+    data: ['David Fasciano', 'Diana Margulis'],
+  },
+  {
+    title: 'H',
+    data: ['Harry ZdZairski'],
+  },
+  {
+    title: 'J',
+    data: ['John Gilman'],
+  },
+];
 function App() {
+  const [isShowingAddContact, setIsShowingAddContact] = useState(false);
+  const contactCount = DATA.reduce(
+    (total, curVal) => total + curVal.data.length,
+    0,
+  );
+
+  if (isShowingAddContact) {
+    return <AddContact />;
+  }
+
   return (
-    <View>
-      <View style={styles.topBanner}>
-        <Text style={styles.topBannerTitleText}>
-          Contact List{' '}
-          <Text style={styles.topBannerTitleSubText}>20 contacts</Text>
-        </Text>
+    <View style={styles.container}>
+      <View style={styles.addButton}>
+        <AddButtonIcon
+          onPress={() => setIsShowingAddContact(true)}
+          fill={'#04947A'}
+        />
       </View>
-      <View>
-        <AddButtonIcon fill={'purple'} />
-        <Text>A</Text>
+      <TopBanner contactCount={contactCount} />
+      <View style={styles.paddingHorizontal10}>
+        <SectionList
+          sections={DATA}
+          keyExtractor={(item, index) => item + index}
+          renderItem={({item}) => (
+            <View style={styles.item}>
+              <Text style={styles.title}>{item}</Text>
+            </View>
+          )}
+          renderSectionHeader={({section: {title}}) => (
+            <Text style={styles.header}>{title}</Text>
+          )}
+        />
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  topBanner: {
-    backgroundColor: '#04947A',
-    height: '45%',
-    justifyContent: 'flex-end',
-    paddingLeft: 20,
-    paddingBottom: 10,
-    borderBottomLeftRadius: 20,
+  container: {
+    flex: 1,
   },
-  topBannerTitleText: {
-    color: '#FFFFFF',
-    fontSize: 30,
+  addButton: {
+    zIndex: 50,
+    position: 'absolute',
+    right: 10,
+    bottom: 40,
   },
-  topBannerTitleSubText: {
-    color: '#FFFFFF',
-    fontSize: 15,
+  paddingHorizontal10: {
+    paddingHorizontal: 10,
+  },
+  item: {
+    padding: 20,
+    marginVertical: 8,
+  },
+  header: {
+    fontSize: 32,
+    backgroundColor: '#fff',
+  },
+  title: {
+    fontSize: 24,
   },
 });
 

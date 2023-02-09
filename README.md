@@ -1,9 +1,13 @@
 ### To Run App
 
 ```
+npm install
+cd ios && pod install && cd ..
 npm run ios # for ios
 npm run android # for android
 ```
+
+## Dependencies
 
 ```
 //https://github.com/software-mansion/react-native-svg
