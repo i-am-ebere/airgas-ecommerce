@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import AddButtonIcon from './assets/svg/add-button.svg';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         </Text>
       </View>
       <View>
+        <AddButtonIcon fill={'purple'} />
         <Text>A</Text>
       </View>
     </View>
