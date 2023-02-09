@@ -34,19 +34,26 @@ export function AddContact(props: IAddContactProps) {
         <TextInput style={styles.textInput} placeholder={'Phone'} />
 
         <View>
-          <Button title="Add Contact" onPress={() => {}} />
+          {/* <Button title="Add Contact" onPress={() => {}} />
           <TouchableOpacity onPress={() => {}}>
             <Text style={{color: 'red'}}>Add Contact</Text>
           </TouchableOpacity>
           <TouchableWithoutFeedback onPress={() => {}}>
             <Text style={{color: 'red'}}>Add Contact</Text>
-          </TouchableWithoutFeedback>
+          </TouchableWithoutFeedback> */}
           <Pressable
             onPress={() => {}}
             style={({pressed}) => [
               {backgroundColor: pressed ? 'green' : 'blue'},
             ]}>
             <Text style={{color: 'red'}}>Add Contact</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => {}}
+            style={({pressed}) => [
+              {backgroundColor: pressed ? 'green' : 'blue'},
+            ]}>
+            <Text style={{color: 'red'}}>Cancel</Text>
           </Pressable>
         </View>
       </View>
