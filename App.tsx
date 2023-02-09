@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, SectionList} from 'react-native';
+import {defaultStyles} from './assets/styles';
 import AddButtonIcon from './assets/svg/add-button.svg';
 import {AddContact} from './src/add-contact';
 import {TopBanner} from './src/top-banner';
@@ -33,7 +34,7 @@ function App() {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={defaultStyles.container}>
       <View style={styles.addButton}>
         <AddButtonIcon
           onPress={() => setIsShowingAddContact(true)}
@@ -41,7 +42,7 @@ function App() {
         />
       </View>
       <TopBanner title={'Contact List'} contactCount={contactCount} />
-      <View style={styles.paddingHorizontal10}>
+      <View style={defaultStyles.paddingHorizontal10}>
         <SectionList
           sections={DATA}
           keyExtractor={(item, index) => item + index}
@@ -60,17 +61,11 @@ function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   addButton: {
     zIndex: 50,
     position: 'absolute',
     right: 10,
     bottom: 40,
-  },
-  paddingHorizontal10: {
-    paddingHorizontal: 10,
   },
   item: {
     padding: 20,
