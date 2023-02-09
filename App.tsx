@@ -38,6 +38,9 @@ function Person(props: IPersonProps) {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 14,
+    flex: 1,
+    backgroundColor: 'red',
+    justifyContent: 'space-between',
   },
   title: {fontSize: 30, fontWeight: 'bold'},
 });
