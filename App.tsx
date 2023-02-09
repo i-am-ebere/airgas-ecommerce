@@ -4,11 +4,17 @@ import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
 function App(): JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
-      <View>
+      <View style={{flex: 1, backgroundColor: 'green'}}>
         <Text style={styles.title}>My first app</Text>
         <Person details={{name: 'Ebere I', occupation: 'React Native dev'}} />
       </View>
-      <View>
+      <View style={{flex: 2, backgroundColor: 'purple'}}>
+        <Text style={styles.title}>My Other app</Text>
+        <Person
+          details={{name: 'Not Ebere I', occupation: 'React Native dev'}}
+        />
+      </View>
+      <View style={{flex: 3, backgroundColor: 'green'}}>
         <Text style={styles.title}>My Other app</Text>
         <Person
           details={{name: 'Not Ebere I', occupation: 'React Native dev'}}
@@ -40,7 +46,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 14,
     flex: 1,
     backgroundColor: 'red',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
   title: {fontSize: 30, fontWeight: 'bold'},
 });
